@@ -1,0 +1,57 @@
+---
+title: "GWAS_Course_ManhattanPlot"
+author: "R. Flamio"
+date: "2023-06-06"
+output: html_document
+---
+
+Produce a Manhattan Plot for the hapmap data. 
+
+# Set working directory
+
+# Install and load packages
+
+```{r setup, include=FALSE}
+
+install.packages("qqman")
+library("qqman")
+
+```
+
+# Read in file
+
+```{r}
+
+hapmap <- read.table("withpopB.assoc.logistic", header=TRUE)
+
+```
+
+# Code chromosomes and SNPs as integers for correct plotting
+
+```{r}
+
+hapmap$CHR <- as.integer(as.factor(hapmap$CHR))
+hapmap$SNP <- as.integer(as.factor(hapmap$SNP))
+
+```
+
+# Visualize a subset of the data 
+
+```{r}
+
+hapmap[1:5,1:8]
+
+```
+
+# Produce plot 
+
+```{r}
+
+manhattan(hapmap, chr = "CHR", bp = "BP", p = "P", suggestiveline = -log10(0.01/nrow(hapmap)), genomewideline = -log10(0.001/nrow(hapmap)), ylim=c(0,10))
+
+
+```
+
+
+
+
